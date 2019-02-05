@@ -7,34 +7,65 @@
     <title>Welcome</title>
   </head>
   <body background="images/background-1.jpeg">
-    <form class="navbar-form navbar-left" role="search">
-
-      <table width="90%" align="center">
-        <tr>
-          <td colspan="2">
-            <h1>Welcome</h1>
-          </td>
-        </tr>
-        <tr>
-          <td><span class="input-group-addon">用户名</span></td>
-          <td><input type="text" class="form-control" maxlength="12" placeholder="6-12位用户名" /></td>
-        </tr>
-        <tr>
-          <td><span class="input-group-addon">联系方式</span></td>
-          <td><input type="text" class="form-control" maxlength="12" placeholder="电话号码" /></td>
-        </tr>
-        <tr>
-          <td><span class="input-group-addon">孩子姓名</span></td>
-          <td><input type="text" class="form-control" maxlength="12" /></td>
-        </tr>
-        <tr>
-          <td colspan="2"><button type="submit" class="btn btn-default">提交</button></td>
-        </tr>
-      </table>
+    <h1>Welcome</h1>
+    <form class="navbar-form navbar-left" id="studentForm">
+      <div class="form-group">
+    		<label for="parentName">姓名：</label>
+    		<input type="text" class="form-control" id="parentName" name="parentName" placeholder="请输入姓名">
+    	</div>
+    	<div class="form-group">
+    		<label for="phoneNum">联系方式：</label>
+    		<input type="text" class="form-control" id="phoneNum" name="phoneNum" placeholder="请输入电话">
+    	</div>
+      <div class="form-group">
+    		<label for="babyName">宝贝名称：</label>
+    		<input type="text" class="form-control" id="babyName" name="babyName" placeholder="请输入宝贝名称">
+    	</div>
+      <button type="submit" class="btn btn-default">提交</button>
     </form>
 
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdn.bootcss.com/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$("#studentForm").bootstrapValidator({
+			message : 'This value is not valid',
+			feedbackIcons : {
+				valid : 'glyphicon glyphicon-ok',
+				invalid : 'glyphicon glyphicon-remove',
+				validating : 'glyphicon glyphicon-refresh'
+			},
+			fields:{
+				parentName:{
+					validators:{
+						notEmpty:{
+							message:"请输入用户名！"
+						}
+					}
+				},
+				phoneNum:{
+					validators:{
+						notEmpty:{
+							message:"请输入电话号码"
+						},
+            phone: {
+              country: "CN",
+              message:"电话号码不正确"
+            }
+					}
+				},
+        babyName: {
+          validators:{
+						notEmpty:{
+							message:"请输入宝贝姓名"
+						}
+          }
+        }
+			}
+		});
+	});
+</script>
   </body>
 </html>
