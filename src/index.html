@@ -8,60 +8,83 @@
   </head>
   <body background="images/background-1.jpeg">
     <h1>Welcome</h1>
-    <form class="navbar-form navbar-left" id="studentForm">
+    <form class="navbar-form navbar-left" id="studentForm" action="saveInfo.php" method="POST">
       <div class="form-group">
-    		<label for="parentName">姓名：</label>
-    		<input type="text" class="form-control" id="parentName" name="parentName" placeholder="请输入姓名">
+    		<label for="parentName">家长称呼：</label>
+    		<input type="text" class="form-control" id="parent_name" name="parent_name" placeholder="请输入姓名">
     	</div>
     	<div class="form-group">
     		<label for="phoneNum">联系方式：</label>
-    		<input type="text" class="form-control" id="phoneNum" name="phoneNum" placeholder="请输入电话">
+    		<input type="text" class="form-control" id="phone_num" name="phone_num" placeholder="请输入电话">
     	</div>
       <div class="form-group">
     		<label for="babyName">宝贝名称：</label>
-    		<input type="text" class="form-control" id="babyName" name="babyName" placeholder="请输入宝贝名称">
+    		<input type="text" class="form-control" id="baby_name" name="baby_name" placeholder="请输入宝贝名称">
     	</div>
+      <div class="form-group">
+    		<label for="babyName">宝贝年龄：</label>
+    		<input type="text" class="form-control" id="baby_age" name="baby_age" placeholder="请输入宝贝年龄">
+    	</div>
+      <input type="hidden" id="referrer" name="referrer"/>
       <button type="submit" class="btn btn-default">提交</button>
     </form>
 
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.0/dist/jquery.validate.min.js" crossorigin="anonymous"></script>
     <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://cdn.bootcss.com/bootstrap-validator/0.5.3/js/bootstrapValidator.min.js"></script>
 <script type="text/javascript">
+  function getURLParameter(sParam) {
+    var sPageURL = window.location.search.substring(1);
+    var sURLVariables = sPageURL.split('&');
+    for (var i = 0; i < sURLVariables.length; i++) {
+      var sParameterName = sURLVariables[i].split('=');
+      if (sParameterName[0] == sParam) {
+        return sParameterName[1];
+      }
+    }
+  }
 	$(function(){
-		$("#studentForm").bootstrapValidator({
-			message : 'This value is not valid',
-			feedbackIcons : {
-				valid : 'glyphicon glyphicon-ok',
-				invalid : 'glyphicon glyphicon-remove',
-				validating : 'glyphicon glyphicon-refresh'
-			},
-			fields:{
-				parentName:{
-					validators:{
-						notEmpty:{
-							message:"请输入用户名！"
-						}
-					}
+    referrer = getURLParameter('referrer');
+    console.log(referrer);
+    $("#referrer").val(referrer);
+
+    $.extend($.validator.messages, {
+      required: "这是必填字段",
+      remote: "请修正此字段",
+      email: "请输入有效的电子邮件地址",
+      url: "请输入有效的网址",
+      date: "请输入有效的日期",
+      dateISO: "请输入有效的日期 (YYYY-MM-DD)",
+      number: "请输入有效的数字",
+      digits: "只能输入数字",
+      creditcard: "请输入有效的信用卡号码",
+      equalTo: "你的输入不相同",
+      extension: "请输入有效的后缀",
+      maxlength: $.validator.format("最多可以输入 {0} 个字符"),
+      minlength: $.validator.format("最少要输入 {0} 个字符"),
+      rangelength: $.validator.format("请输入长度在 {0} 到 {1} 之间的字符串"),
+      range: $.validator.format("请输入范围在 {0} 到 {1} 之间的数值"),
+      max: $.validator.format("请输入不大于 {0} 的数值"),
+      min: $.validator.format("请输入不小于 {0} 的数值")
+    });
+		$("#studentForm").validate({
+			rules:{
+				parent_name:{
+					required: true,
+          minlength: 2
 				},
-				phoneNum:{
-					validators:{
-						notEmpty:{
-							message:"请输入电话号码"
-						},
-            phone: {
-              country: "CN",
-              message:"电话号码不正确"
-            }
-					}
+				phone_num: {
+          required: true,
+          digits:true
 				},
-        babyName: {
-          validators:{
-						notEmpty:{
-							message:"请输入宝贝姓名"
-						}
-          }
+        baby_name: {
+          required: true,
+          minlength: 2
+        },
+        baby_age: {
+          required: true
         }
 			}
 		});
