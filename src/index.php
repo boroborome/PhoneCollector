@@ -118,7 +118,7 @@ if (!empty($parent_name)
   		<div class="col-md-12 col-sm-12">
   			<div class="bj">
   				<div class="a-banner">
-  					<img src="images/banner.jpg">
+  					<img src="images/banner.jpeg">
   				</div>
   				<div class="a-form">
   					<form action="index.php" method="POST" onsubmit="return checkform()">
