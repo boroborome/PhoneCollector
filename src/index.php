@@ -3,7 +3,9 @@
 $status = "";
 function saveInfoToDb($parent_name, $phone_num, $baby_name, $baby_age, $referrer) {
   global $status;
-  $mysqli = new mysqli("xxx", "xxx", "xxx", "xxx");
+  define('ABSPATH', dirname(__FILE__) . '/');
+  require_once(ABSPATH . 'config.php');
+  $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
   if (mysqli_connect_errno()) {
     echo '数据库连接错误'.mysqli_connect_error();
     exit();
