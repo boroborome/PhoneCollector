@@ -3,7 +3,7 @@
 $status = "";
 function saveInfoToDb($parent_name, $phone_num, $baby_name, $baby_age, $referrer) {
   global $status;
-  $mysqli = new mysqli("qdm210374521.my3w.com", "qdm210374521", "db1600online", "qdm210374521_db");
+  $mysqli = new mysqli("xxx", "xxx", "xxx", "xxx");
   if (mysqli_connect_errno()) {
     echo '数据库连接错误'.mysqli_connect_error();
     exit();
