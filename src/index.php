@@ -48,7 +48,7 @@ if (!empty($parent_name)
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<title>活动页面</title>
+<title>在巴仑思成长</title>
 <meta name="keywords" content="巴仑思教育,初中高考辅导">
 <meta name="description" content="巴仑思教育辅导报名活动">
 <meta http-equiv="X-UA-Compatible" content="IE=Edge">
@@ -165,6 +165,15 @@ if (!empty($parent_name)
   		</div>
   	</div>
   </div>
-
+<?php
+if ($disabled != "") {
+  ?>
+  <div class="white_content">
+  	<img src="images/success.png" style="width: 100%;height: auto;">
+  </div>
+  <div class="black_overlay"></div>
+  <?php
+}
+?>
 </body>
 </html>
