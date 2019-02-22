@@ -1,7 +1,7 @@
 <!doctype html>
 <?php
 $status = "";
-function saveInfoToDb($parent_name, $phone_num, $baby_name, $baby_age, $referrer) {
+function saveInfoToDb($parent_name, $phone_num, $baby_name, $baby_age, $try_class, $referrer) {
   global $status;
   define('ABSPATH', dirname(__FILE__) . '/');
   require_once(ABSPATH . 'config.php');
@@ -23,8 +23,8 @@ function saveInfoToDb($parent_name, $phone_num, $baby_name, $baby_age, $referrer
   if ($C > 0) {
     $status = "电话号码已经存在了";
   } else {
-    $stmt = $mysqli->prepare("insert into students(parent_name,baby_name,phone_num,baby_age,updater) values(?,?,?,?,?)");
-    $stmt->bind_param("sssds", $parent_name, $baby_name, $phone_num, $baby_age, $referrer);
+    $stmt = $mysqli->prepare("insert into students(parent_name,baby_name,phone_num,baby_age,try_class, updater) values(?,?,?,?,?,?)");
+    $stmt->bind_param("sssdss", $parent_name, $baby_name, $phone_num, $baby_age, $try_class, $referrer);
     $stmt->execute();
     $status = "Success";
   }
@@ -35,13 +35,14 @@ $parent_name=trim($_POST['parent_name']);
 $phone_num=trim($_POST['phone_num']);
 $baby_name=trim($_POST['baby_name']);
 $baby_age=$_POST['baby_age'];
+$try_class=$_POST['try_class'];
 $referrer=trim($_POST['referrer']);
 
 if (!empty($parent_name)
   && !empty($phone_num)
   && !empty($baby_name)
   && !empty($baby_age)) {
-    saveInfoToDb($parent_name, $phone_num, $baby_name, $baby_age, $referrer);
+    saveInfoToDb($parent_name, $phone_num, $baby_name, $baby_age, $try_class, $referrer);
 }
 
 ?>
@@ -145,6 +146,9 @@ if (!empty($parent_name)
                   <?php echo $disabled ?>>
   					  	<input id="baby_age" name="baby_age" type="text" placeholder="宝贝年龄"
                   value="<?php echo $baby_age ?>"
+                  <?php echo $disabled ?>>
+                <input id="try_class" name="try_class" type="text" placeholder="试听科目"
+                  value="<?php echo $try_class ?>"
                   <?php echo $disabled ?>>
                 <input type="hidden" id="referrer" name="referrer" value="<?php echo $referrer ?>"/>
   					  	<button class="a-submit" <?php echo $disabled ?>>
